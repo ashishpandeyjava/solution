@@ -18,7 +18,20 @@ public class ShopService {
 	
 	public static final Logger logger = LoggerFactory.getLogger(ShopService.class);
 	
-	private List<Shop> shops = new ArrayList<>(Arrays.asList(
+	
+	public ShopService(List<Shop> shops) {
+		super();
+		this.shops = shops;
+	}
+
+	
+	public ShopService() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public List<Shop> shops = new ArrayList<>(Arrays.asList(
 			new Shop(1,"shop1",(new ShopAddress(1,"111111")),141.4567,234.678),
 			new Shop(2,"shop2",(new ShopAddress(2,"222222")),1234.5678,345.678),
 			new Shop(3,"shop3",(new ShopAddress(3,"333333")),4567.765456,567.7654),

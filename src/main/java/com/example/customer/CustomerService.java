@@ -10,12 +10,17 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
+
 import com.example.Errors.DataNotFoundException;
 
-
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+//import net.minidev.json.JSONObject;
 
 
 
@@ -69,22 +74,6 @@ Customer c1 = customers.get(id);
 		return c1 ;
 
 	}
-
-	public GoogleResponse geocoding(String customerLongitude, String customerLatitude) throws IOException {
-		
-		
-		URL url = new URL(URL + "?latlng="
-			    + URLEncoder.encode(customerLongitude, "UTF-8") + "&sensor=false");
-				
-			  // Open the Connection
-			  URLConnection conn = url.openConnection();
-			
-			  InputStream in = conn.getInputStream() ;
-			  ObjectMapper mapper = new ObjectMapper();
-			  GoogleResponse response = (GoogleResponse)mapper.readValue(in,GoogleResponse.class);
-			  in.close();
-			  return response;
-
-	}
 	
-	}
+	
+}

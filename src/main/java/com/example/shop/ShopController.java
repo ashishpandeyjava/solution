@@ -11,13 +11,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+
+
 @RestController
 public class ShopController {
 	
 	public static final Logger logger = LoggerFactory.getLogger(ShopController.class);
 	
+	
+	
+	/*public ShopController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}*/
+	
+	
+
+	public ShopController(ShopService shopService) {
+		super();
+		this.shopService = shopService;
+	}
+
+
+
+	public ShopController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	@Autowired
-	ShopService shopService;
+	public ShopService shopService;
 	
 	@RequestMapping("/shops")
 	public List<Shop> getAllShop(){
