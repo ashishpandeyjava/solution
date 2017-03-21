@@ -55,9 +55,9 @@ public class ShopControllerTest {
 		
 	
 		shopService = mock(ShopService.class);
-		 s1 = new Shop(1,"TestShop1",new ShopAddress(101,"TestAddress"));
-		 s2 = new Shop(2,"TestShop2",new ShopAddress(101,"TestAddress"));
-		 s3 = new Shop(3,"TestShop3",new ShopAddress(101,"TestAddress"));
+		 s1 = new Shop(1,"TestShop1",new ShopAddress(101,"TestAddress1"));
+		 s2 = new Shop(2,"TestShop2",new ShopAddress(102,"TestAddress2"));
+		 s3 = new Shop(3,"TestShop3",new ShopAddress(103,"TestAddress3"));
 		
 		 
 		 List<Shop> l1 = new ArrayList<Shop>();
@@ -70,11 +70,12 @@ public class ShopControllerTest {
 		 
 		
 		shopController = new ShopController(shopService);
-		 //shopController.addShop(s1);
-		//shopService.addShop(s);
-		 
+		
+		shopController.getAllShop();
+		
+				 
 		//when (shopService.getAllShop()).thenReturn(l1);
-		// when (shopController.getAllShop()).thenReturn(l1);
+	
 		
 	}
 	
@@ -82,7 +83,7 @@ public class ShopControllerTest {
 	public void getShop() {
     	
 		
-    	//shopService = mock(ShopService.class);
+    	shopService = mock(ShopService.class);
 		 s1 = new Shop(1,"TestShop1",new ShopAddress(101,"TestAddress"));
 		 s2 = new Shop(2,"TestShop1",new ShopAddress(101,"TestAddress"));
 		 
@@ -96,15 +97,88 @@ public class ShopControllerTest {
 		
 		shopController = new ShopController(shopService);
 		
+		shopController.getShop(1);
 				
-		when (shopService.getShop(anyInt())).thenReturn(s1);
+		//when (shopService.getShop(anyInt())).thenReturn(s1);
 		
-	//when (shopController.getShop(anyInt())).thenReturn(s1);
+	
 		
 		
 		
 		
 	}
+    
+    @Test
+  	public void addShop() {
+      	
+  		
+      	shopService = mock(ShopService.class);
+      	
+      	 s1 = new Shop(1,"TestShop1",new ShopAddress(101,"TestAddress"));
+		 s2 = new Shop(2,"TestShop1",new ShopAddress(101,"TestAddress"));
+		 
+		List<Shop> l1 = new ArrayList<Shop>(10);
+		 
+		 l1.add(s1);
+		 l1.add(s2);
+  		 s3 = new Shop(3,"TestShop3",new ShopAddress(103,"TestAddress3"));
+  		
+  		 
+  	
+  		 
+  		
+  		 
+  				 
+  		shopService = new ShopService(l1);
+  		 
+  		
+  		shopController = new ShopController(shopService);
+  		
+  		shopController.addShop(s3);
+  		
+  		
+  				
+  		//when (shopService.getShop(anyInt())).thenReturn(s1);
+  		
+  	
+  		
+  		
+  		
+  		
+  	}
+    
+    @Test
+  	public void deleteShop() {
+      	
+  		
+      	shopService = mock(ShopService.class);
+      	
+      	 s1 = new Shop(1,"TestShop1",new ShopAddress(101,"TestAddress"));
+		 s2 = new Shop(2,"TestShop1",new ShopAddress(101,"TestAddress"));
+		 
+		List<Shop> l1 = new ArrayList<Shop>(10);
+		 
+		 l1.add(s1);
+		 l1.add(s2);
+  			
+  		  
+  		shopService = new ShopService(l1);
+  		 
+  		
+  		shopController = new ShopController(shopService);
+  		
+  		shopController.deleteShop(2);
+  				
+  		//when (shopService.getShop(anyInt())).thenReturn(s1);
+  		
+  	
+  		
+  		
+  		
+  		
+  	}
+    
+    
     
  
 }
