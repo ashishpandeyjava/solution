@@ -3,8 +3,13 @@ package com.example.customer;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-//import com.example.shop.Shop;
-//import com.example.shop.ShopAddress;
-
-
+import com.example.shop.LatLong;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @RestController
@@ -53,33 +56,20 @@ public class CustomerController {
 		customerService.addCustomer(c);
 	}
 	
-	/*@RequestMapping(method= RequestMethod.GET, value="/customers/{longi}/{lat}")
-	public GoogleResponse geocoding(@PathVariable String longi, String lat) throws IOException{
 		
-		 
-		return customerService.geocoding(longi,lat);
-		
-	}*/
 	@RequestMapping(value = "/customer/shop/{address}", method = RequestMethod.GET)
-	public ResponseEntity<Customer> getLongitudeandLatitude(@PathVariable String address) throws Exception {
-		
-		//String address=shop.getShopaddress();
-		//String address = shop.getAddress().toString();
-		geocoding(address);
-		return new ResponseEntity<Customer>(customer, HttpStatus.OK);
-	}
+	@Produces(MediaType.APPLICATION_JSON)
 	
-
-	private void geocoding(String address) throws Exception
-	{
+	public Response getLongitudeandLatitude(@PathVariable String address) throws Exception {
+	
 	    // build a URL
-	    //String s = "http://maps.google.com/maps/api/geocode/json?" +
-	                  //  "sensor=false&address=";
 		
 		String s = "https://maps.googleapis.com/maps/api/geocode/json?"+ "sensor=false&address=";
 	    s += URLEncoder.encode(address, "UTF-8");
 	    
 	    URL url = new URL(s);
+	    List<LatLong> list = new ArrayList<LatLong>();
+	    //JSONArray jsonArr = new JSONArray(response);
 	 
 	    // read from the URL
 	    Scanner scan = new Scanner(url.openStream());
@@ -91,15 +81,31 @@ public class CustomerController {
 	    // build a JSON object
 	    JSONObject obj = new JSONObject(str);
 	    if (! obj.getString("status").equals("OK"))
-	        return;
+	        return null;
 	 
 	    // get the first result
 	    JSONObject res = obj.getJSONArray("results").getJSONObject(0);
-	    System.out.println(res.getString("formatted_address"));
+	    String resident = res.getString("formatted_address");
+	   // LatLong re = (LatLong) new String("resident");
+	    System.out.println(resident);
 	    JSONObject loc =
 	        res.getJSONObject("geometry").getJSONObject("location");
-	    System.out.println("lat: " + loc.getDouble("lat") +
-	                        ", lng: " + loc.getDouble("lng"));
+	    ObjectMapper mapper = new ObjectMapper();
+	    LatLong latlong = mapper.readValue(loc.toString(),LatLong.class); 
+	    
+	   
+	    list.add(latlong);
+	    double lat = loc.getDouble("lat");
+	    double lng = loc.getDouble("lng");
+	    
+	    System.out.println("lat: " + lat +
+	                        ", lng: " + lng);
+	    
+	    System.out.println("The LOC is"+loc);
+	    
+	     return Response.status(200).entity(latlong).build();
+	     
+	  
 	}
 	
 	

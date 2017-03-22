@@ -11,3 +11,4 @@ Step-:
 10) We create a seperate Exception classes and Mapper classes in Error Package.
 11) We are able to test our project to write a client code TestClient in our project.
 12) We are able to put all the dependencies in build.gradle file.
+13) For calling a geocoding you must need to use  URI -: customer/shop/{address}

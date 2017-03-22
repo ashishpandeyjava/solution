@@ -20,11 +20,11 @@ public class ShopController {
 	
 	
 	
-	/*public ShopController() {
-		super();
-		// TODO Auto-generated constructor stub
-	}*/
 	
+	public ShopController() {
+		super();
+		
+	}
 	
 
 	public ShopController(ShopService shopService) {
@@ -34,10 +34,7 @@ public class ShopController {
 
 
 
-	public ShopController() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	
 
 
 
